@@ -43,4 +43,45 @@ describe('The Display component', () => {
 
         expect(openIndicator).toHaveTextContent(/open/i);
     });
+
+    it('displays open when the open button is clicked', () => {
+        render(<Dashboard/>);
+        const controls = render(<Controls/>);
+        const closeButton = controls.getByText(/close gate/i);
+        const lockButton = controls.getByText(/lock gate/i);
+        const display = render(<Display/>);
+        const lockedIndicator = display.getByText(/unlocked/i);
+
+        fireEvent.click(closeButton);
+        fireEvent.click(lockButton);
+
+        expect(lockedIndicator).toHaveTextContent(/locked/i);
+    });
+
+    it('displays unlocked when the unlock button is clicked', () => {
+        render(<Dashboard/>);
+        const controls = render(<Controls/>);
+        const closeButton = controls.getByText(/close gate/i);
+        const lockButton = controls.getByText(/lock gate/i);
+        const display = render(<Display/>);
+        const unlockedIndicator = display.getByText(/unlocked/i);
+
+        fireEvent.click(closeButton);
+        fireEvent.click(lockButton);
+        fireEvent.click(lockButton);
+
+        expect(unlockedIndicator).toHaveTextContent(/unlocked/i);
+    });
+
+    it('displays green when gate is open', () => {
+        const display = render(<Display closed={false}/>);
+        const openIndicator = display.getByText(/open/i);
+        expect(openIndicator).toHaveClass('led green-led');
+    });
+
+    it('displays red when gate is closed', () => {
+        const display = render(<Display closed={true}/>);
+        const closedIndicator = display.getByText(/closed/i);
+        expect(closedIndicator).toHaveClass('led red-led');
+    });
 });
