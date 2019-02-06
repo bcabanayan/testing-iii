@@ -10,12 +10,12 @@ import Controls from './Controls.js';
 afterEach(cleanup);
 
 describe('The Controls component', () => {
-    it('provides a button to close the gate', () => {
+    it('provides a button to close the gate by default', () => {
         const { getByText } = render(<Controls/>);
         getByText(/close gate/i);
     });
 
-    it('provides a button to lock the gate', () => {
+    it('provides a button to lock the gate by default', () => {
         const { getByText } = render(<Controls/>);
         getByText(/lock gate/i);
     });
