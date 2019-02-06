@@ -84,4 +84,16 @@ describe('The Display component', () => {
         const closedIndicator = display.getByText(/closed/i);
         expect(closedIndicator).toHaveClass('led red-led');
     });
+
+    it('displays green when gate is unlocked', () => {
+        const display = render(<Display locked={false}/>);
+        const unlockedIndicator = display.getByText(/unlocked/i);
+        expect(unlockedIndicator).toHaveClass('led green-led');
+    });
+
+    it('displays red when gate is locked', () => {
+        const display = render(<Display locked={true}/>);
+        const lockedIndicator = display.getByText(/locked/i);
+        expect(lockedIndicator).toHaveClass('led red-led');
+    });
 });
